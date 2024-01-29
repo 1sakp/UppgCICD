@@ -1,0 +1,38 @@
+name: Build push to AWS
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0'
+
+      - name: build proj 
+        run: dotnet restore; dotnet publish -o site;
+    
+      - name: create zip 
+        run: cd site; zip ../site.zip *;
+    
+            
+      - name: deploy to aws eb
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws_secret_key: ${{secrets.AWS_SECRET_KEY_ID}}
+          application_name: Uppg1
+          enviroment_name: Uppg1-env
+          version_label: ${{github.run_id}}
+          region: eu-north-1
+          deployment_package: site.zip
+
