@@ -32,8 +32,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY_ID }}
           application_name: Uppg1
           environment_name: Uppg1-env
-          version_label: deployment 6
-          version_description: deploy
+          version_label: ${{ github.run_id }}
           region: eu-north-1
           deployment_package: site.zip
-
