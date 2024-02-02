@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/", () => "/encrypt for encryption and /decrypt for decrypt");
+app.MapGet("/", () => "/encrypt for encryption and /decrypt for decrypt\nSyntax: /[endpoint]?input='[string]'&key=[int]");
 
 app.MapGet("/encrypt", (string input, int key) => Encrypt(input, key));
 
