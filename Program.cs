@@ -31,4 +31,5 @@ static string Encrypt(string input, int key)
 static string Decrypt(string input, int key)
 {
     return Encrypt(input, 26 - key); // Decrypts by using the oposite of encrypt
+    
 }
