@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/", () => "/encrypt for encryption and /decrypt for decrypt\nSyntax: /[endpoint]?input='[string]'&key=[int]");
+app.MapGet("/", () => "/encrypt for encryption and /decrypt for decrypt\nSyntax: /[endpoint]?input='[string]'&key=[int]\n[IMPORTANT]--> Key must be larger than 0 and smaller than 27");
 
 app.MapGet("/encrypt", (string input, int key) => Encrypt(input, key));
 
@@ -31,5 +31,5 @@ static string Encrypt(string input, int key)
 static string Decrypt(string input, int key)
 {
     return Encrypt(input, 26 - key); // Decrypts by using the oposite of encrypt
-    
+
 }
