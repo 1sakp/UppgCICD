@@ -2,19 +2,20 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 
+
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+app.MapGet("/", () => "/encrypt for encryption and /decrypt for decrypt\nSyntax: /[endpoint]?input='[string]'&key=[int]\n[IMPORTANT]--> Key must be larger than 0 and smaller than 27");
+
+app.MapGet("/encrypt", (string input, int key) => Encrypt(input, key));
+
+app.MapGet("/decrypt", (string input, int key) => Decrypt(input, key));
+
+app.Run();
+
 namespace application
 {
-    var builder = WebApplication.CreateBuilder(args);
-    var app = builder.Build();
-
-    app.MapGet("/", () => "/encrypt for encryption and /decrypt for decrypt\nSyntax: /[endpoint]?input='[string]'&key=[int]\n[IMPORTANT]--> Key must be larger than 0 and smaller than 27");
-
-    app.MapGet("/encrypt", (string input, int key) => Encrypt(input, key));
-
-    app.MapGet("/decrypt", (string input, int key) => Decrypt(input, key));
-
-    app.Run();
-
     static string Encrypt(string input, int key)
     {
         char[] result = input.ToCharArray();
