@@ -14,26 +14,23 @@ app.MapGet("/decrypt", (string input, int key) => Decrypt(input, key));
 
 app.Run();
 
-namespace application
+
+static string Encrypt(string input, int key)
 {
-    
-    static string Encrypt(string input, int key)
-    {
-        char[] result = input.ToCharArray();
+    char[] result = input.ToCharArray();
 
-        for (int i = 0; i < result.Length; i++)
+    for (int i = 0; i < result.Length; i++)
+    {
+        if (char.IsLetter(result[i]))
         {
-            if (char.IsLetter(result[i]))
-            {
-                char offset = char.IsUpper(result[i]) ? 'A' : 'a';
-                result[i] = (char)(((result[i] + key - offset) % 26) + offset);
-            }
+            char offset = char.IsUpper(result[i]) ? 'A' : 'a';
+            result[i] = (char)(((result[i] + key - offset) % 26) + offset);
         }
-        return new string(result);
     }
+    return new string(result);
+}
 
-    static string Decrypt(string input, int key)
-    {
-        return Encrypt(input, 26 - key);
-    }
+static string Decrypt(string input, int key)
+{
+    return Encrypt(input, 26 - key);
 }
