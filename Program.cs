@@ -16,6 +16,7 @@ app.Run();
 
 namespace application
 {
+    
     static string Encrypt(string input, int key)
     {
         char[] result = input.ToCharArray();
