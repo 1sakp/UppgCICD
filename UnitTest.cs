@@ -1,4 +1,5 @@
 using Xunit; 
+using application;
 
 namespace application.Tests
 {
@@ -8,10 +9,10 @@ namespace application.Tests
         public void Verify_Correct_Encryption_Return_True()
         {
             //Given
-            string key = "4";
+            int key = 4;
 
             // When
-            string result = Program.Encrypt("aBc", key);
+            string result = Crypt.Encrypt("aBc", key);
 
             // Then
             Assert.Equal("eFg", result);
